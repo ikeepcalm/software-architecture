@@ -1,0 +1,746 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Computer Repair Service API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/v1",
+      "description": "Local Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Repair Requests",
+      "description": "API for managing repair requests"
+    }
+  ],
+  "paths": {
+    "/v1/requests/{requestId}": {
+      "get": {
+        "tags": [
+          "Repair Requests"
+        ],
+        "summary": "Get repair request by ID",
+        "description": "Returns details of a specific repair request",
+        "operationId": "getRepairRequest",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "ID of the repair request",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved repair request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairRequestResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Repair request not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Repair Requests"
+        ],
+        "summary": "Update repair request",
+        "description": "Updates an existing repair request",
+        "operationId": "updateRepairRequest",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "ID of the repair request",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairRequestUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Repair request updated successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairRequestResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Repair request not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Repair Requests"
+        ],
+        "summary": "Delete repair request",
+        "description": "Deletes a repair request",
+        "operationId": "deleteRepairRequest",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "ID of the repair request",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Repair request deleted successfully"
+          },
+          "404": {
+            "description": "Repair request not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/requests": {
+      "get": {
+        "tags": [
+          "Repair Requests"
+        ],
+        "summary": "Get all repair requests",
+        "description": "Returns a paginated list of repair requests with optional filtering and sorting",
+        "operationId": "getRepairRequests",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (1-based)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status (PENDING, IN_PROGRESS, RESOLVED, CANCELLED)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sort by field",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "createdAt"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "Sort direction (asc or desc)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved repair requests",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Repair Requests"
+        ],
+        "summary": "Create repair request",
+        "description": "Creates a new repair request",
+        "operationId": "createRepairRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairRequestCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Repair request created successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairRequestResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/requests/{requestId}/status": {
+      "patch": {
+        "tags": [
+          "Repair Requests"
+        ],
+        "summary": "Update repair request status",
+        "description": "Updates the status of a repair request",
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "ID of the repair request",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Status updated successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairRequestResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Repair request not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication required",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EquipmentDetailsDto": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand of the equipment",
+            "example": "Dell"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model of the equipment",
+            "example": "XPS 15"
+          },
+          "serialNumber": {
+            "type": "string",
+            "description": "Serial number of the equipment",
+            "example": "ABC123456"
+          },
+          "problemDetails": {
+            "type": "string",
+            "description": "Detailed description of the problem",
+            "example": "It shows a blue screen when I try to turn it on"
+          }
+        }
+      },
+      "RepairRequestUpdateDto": {
+        "type": "object",
+        "description": "Updated repair request data",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Updated description of the problem",
+            "example": "Updated description of the issue"
+          },
+          "equipmentDetails": {
+            "$ref": "#/components/schemas/EquipmentDetailsDto",
+            "description": "Updated equipment details"
+          },
+          "serviceLevelId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Updated service level ID",
+            "example": 3
+          }
+        }
+      },
+      "RepairRequestResponseDto": {
+        "type": "object",
+        "description": "Repair request data with all details",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the repair request",
+            "example": 123
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the customer who created the request",
+            "example": 456
+          },
+          "technicianId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the assigned technician (if any)",
+            "example": 789
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the problem",
+            "example": "My laptop won't boot up"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the repair request",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "RESOLVED",
+              "CANCELLED"
+            ]
+          },
+          "equipmentType": {
+            "type": "string",
+            "description": "Type of equipment to be repaired",
+            "enum": [
+              "LAPTOP",
+              "DESKTOP",
+              "TABLET",
+              "SMARTPHONE",
+              "PRINTER",
+              "OTHER"
+            ]
+          },
+          "equipmentDetails": {
+            "$ref": "#/components/schemas/EquipmentDetailsDto",
+            "description": "Detailed information about the equipment"
+          },
+          "serviceLevelId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the service level",
+            "example": 2
+          },
+          "estimatedCost": {
+            "type": "number",
+            "format": "double",
+            "description": "Estimated cost of the repair",
+            "example": 150.0
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the request was created",
+            "example": "2023-05-15T10:30:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the request was last updated",
+            "example": "2023-05-15T11:45:00Z"
+          }
+        }
+      },
+      "ErrorDetails": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code",
+            "example": "VALIDATION_ERROR"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message",
+            "example": "The request was invalid"
+          },
+          "details": {
+            "type": "array",
+            "description": "List of detailed error information (optional)",
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Error response with details",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetails",
+            "description": "Error details"
+          }
+        }
+      },
+      "FieldError": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Field name with error",
+            "example": "email"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message for the field",
+            "example": "Email is required"
+          }
+        }
+      },
+      "RepairRequestCreateDto": {
+        "type": "object",
+        "description": "Repair request data",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Description of the problem",
+            "example": "My laptop won't boot up"
+          },
+          "equipmentType": {
+            "type": "string",
+            "description": "Type of equipment",
+            "enum": [
+              "LAPTOP",
+              "DESKTOP",
+              "TABLET",
+              "SMARTPHONE",
+              "PRINTER",
+              "OTHER"
+            ],
+            "example": "LAPTOP"
+          },
+          "equipmentDetails": {
+            "$ref": "#/components/schemas/EquipmentDetailsDto",
+            "description": "Detailed information about the equipment"
+          },
+          "serviceLevelId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the service level",
+            "example": 2
+          }
+        },
+        "required": [
+          "description",
+          "equipmentType"
+        ]
+      },
+      "StatusUpdateDto": {
+        "type": "object",
+        "description": "Status update data",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "New status for the repair request",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "RESOLVED",
+              "CANCELLED"
+            ],
+            "example": "IN_PROGRESS"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional notes about the status change",
+            "example": "Starting repair process"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "PageResponse": {
+        "type": "object",
+        "description": "Paginated response with data and pagination information",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "List of items",
+            "items": {
+              "type": "object"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationInfo",
+            "description": "Pagination information"
+          }
+        }
+      },
+      "PaginationInfo": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Total number of items",
+            "example": 100
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Current page number",
+            "example": 1
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of items per page",
+            "example": 20
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Total number of pages",
+            "example": 5
+          },
+          "hasNext": {
+            "type": "boolean",
+            "description": "Whether there is a next page",
+            "example": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "description": "Whether there is a previous page",
+            "example": false
+          }
+        }
+      }
+    }
+  }
+}
