@@ -1,8 +1,8 @@
-package dev.ikeepcalm.software.backend.entities.dto;
+package dev.ikeepcalm.software.backend.rest.entities.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dev.ikeepcalm.software.backend.enums.EquipmentType;
-import dev.ikeepcalm.software.backend.enums.RequestStatus;
+import dev.ikeepcalm.software.backend.rest.enums.EquipmentType;
+import dev.ikeepcalm.software.backend.rest.enums.RequestStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

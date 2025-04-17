@@ -1,7 +1,7 @@
-package dev.ikeepcalm.software.backend.entities;
+package dev.ikeepcalm.software.backend.rest.entities;
 
-import dev.ikeepcalm.software.backend.enums.EquipmentType;
-import dev.ikeepcalm.software.backend.enums.RequestStatus;
+import dev.ikeepcalm.software.backend.rest.enums.EquipmentType;
+import dev.ikeepcalm.software.backend.rest.enums.RequestStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

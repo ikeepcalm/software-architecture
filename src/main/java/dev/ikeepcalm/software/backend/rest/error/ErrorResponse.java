@@ -1,4 +1,4 @@
-package dev.ikeepcalm.software.backend.error;
+package dev.ikeepcalm.software.backend.rest.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;

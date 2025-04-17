@@ -1,4 +1,4 @@
-package dev.ikeepcalm.software.backend.error.exceptions;
+package dev.ikeepcalm.software.backend.rest.error.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     

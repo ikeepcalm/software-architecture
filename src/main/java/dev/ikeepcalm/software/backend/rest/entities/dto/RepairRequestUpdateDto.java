@@ -1,4 +1,4 @@
-package dev.ikeepcalm.software.backend.entities.dto;
+package dev.ikeepcalm.software.backend.rest.entities.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;

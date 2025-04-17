@@ -1,13 +1,13 @@
-package dev.ikeepcalm.software.backend.controllers;
+package dev.ikeepcalm.software.backend.rest.controllers;
 
 
-import dev.ikeepcalm.software.backend.entities.dto.RepairRequestCreateDto;
-import dev.ikeepcalm.software.backend.entities.dto.RepairRequestResponseDto;
-import dev.ikeepcalm.software.backend.entities.dto.RepairRequestUpdateDto;
-import dev.ikeepcalm.software.backend.entities.dto.StatusUpdateDto;
-import dev.ikeepcalm.software.backend.error.ErrorResponse;
-import dev.ikeepcalm.software.backend.entities.PageResponse;
-import dev.ikeepcalm.software.backend.services.RepairRequestService;
+import dev.ikeepcalm.software.backend.rest.entities.dto.RepairRequestCreateDto;
+import dev.ikeepcalm.software.backend.rest.entities.dto.RepairRequestResponseDto;
+import dev.ikeepcalm.software.backend.rest.entities.dto.RepairRequestUpdateDto;
+import dev.ikeepcalm.software.backend.rest.entities.dto.StatusUpdateDto;
+import dev.ikeepcalm.software.backend.rest.error.ErrorResponse;
+import dev.ikeepcalm.software.backend.rest.entities.PageResponse;
+import dev.ikeepcalm.software.backend.rest.services.RepairRequestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,4 +1,4 @@
-package dev.ikeepcalm.software.backend.config;
+package dev.ikeepcalm.software.backend.rest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
-package dev.ikeepcalm.software.backend.error;
+package dev.ikeepcalm.software.backend.rest.error;
 
-import dev.ikeepcalm.software.backend.error.exceptions.ResourceNotFoundException;
+import dev.ikeepcalm.software.backend.rest.error.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -1,4 +1,4 @@
-package dev.ikeepcalm.software.backend.enums;
+package dev.ikeepcalm.software.backend.rest.enums;
 
 public enum EquipmentType {
     LAPTOP,

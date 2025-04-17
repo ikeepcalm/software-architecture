@@ -1,7 +1,7 @@
-package dev.ikeepcalm.software.backend.services.repositories;
+package dev.ikeepcalm.software.backend.rest.services.repositories;
 
-import dev.ikeepcalm.software.backend.entities.RepairRequest;
-import dev.ikeepcalm.software.backend.enums.RequestStatus;
+import dev.ikeepcalm.software.backend.rest.entities.RepairRequest;
+import dev.ikeepcalm.software.backend.rest.enums.RequestStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

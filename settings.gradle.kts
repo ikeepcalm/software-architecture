@@ -4,4 +4,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = "kpi.trade.backend"
+rootProject.name = "software-architecture"
